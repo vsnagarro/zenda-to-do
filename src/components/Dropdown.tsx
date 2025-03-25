@@ -29,16 +29,25 @@ const DropdownItem = styled.div<DropdownItemProps>`
       white-space: nowrap;
       padding: 0.625rem;
       min-width: 180px;
+      cursor: pointer;
+      &:hover {
+        padding-left: .5rem;
+        border-left: .125rem solid ${colors.dropdownSelected};
+      }
+      &.selected {
+        padding-left: .375rem;
+        border-left: .25rem solid ${colors.dropdownSelected};
+      }}
     }
   }
 `;
 
-const Dropdown = ({ $show, $onChangeValue, $items }: DropdownProps) => {
+const Dropdown = ({ $show, $value, $onChangeValue, $items }: DropdownProps) => {
   return (
     <DropdownItem $show={$show}>
       <ul>
         {$items.map(($item) => (
-          <li key={$item} onClick={() => $onChangeValue($item)}>
+          <li key={$item} onClick={() => $onChangeValue($item)} className={$item === $value ? "selected" : ""}>
             {$item}
           </li>
         ))}

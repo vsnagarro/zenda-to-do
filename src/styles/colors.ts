@@ -2,6 +2,7 @@
 const baseColors = {
   white: "#FFFFFF",
   whiteTransparent05: "#FFFFFF05",
+  whiteTransparent10: "#FFFFFF10",
   whiteTransparent90: "rgba(255, 255, 255, 0.9)",
   black: "#000000",
   grey: {
@@ -49,6 +50,7 @@ const colors = {
   buttonPrimaryHoverBackground: baseColors.blue.secondary,
   buttonDisabledBackground: baseColors.grey.dark,
   buttonTextWhite: baseColors.white,
+  buttonBorderWhite: baseColors.whiteTransparent10,
 
   buttonTertiary: baseColors.blue.primary,
   buttonTertiaryText: baseColors.white,
@@ -60,7 +62,7 @@ const colors = {
   // Dropdown
   dropdownBackground: baseColors.black,
   dropdownBorder: baseColors.white,
-  dropdownSelectedBackground: "#E0E0E0",
+  dropdownSelected: "#0E69F2",
   dropdownSelectedBar: baseColors.blue.primary,
   dropdownText: baseColors.black,
   dropdownHoverText: baseColors.black,

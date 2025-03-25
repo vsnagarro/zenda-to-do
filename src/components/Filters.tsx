@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
+import colors from "../styles/colors";
 interface FiltersProps {
   $showFilter: boolean;
   $setShowFilter: (value: boolean) => void;
@@ -13,16 +14,22 @@ interface FiltersProps {
 
 const Div = styled.div`
   display: flex;
-  gap: 1.5rem;
+  gap: 0.75rem;
   justify-content: space-between;
   button {
     background: transparent;
     color: white;
-    border: 0 none;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
     display: inline-flex;
     gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
     align-items: center;
     cursor: pointer;
+    &.active {
+      border: 1px solid ${colors.buttonBorderWhite};
+      background: ${colors.buttonPrimaryHoverBackground};
+    }
   }
   > div {
     position: relative;
@@ -33,7 +40,7 @@ const Filters = ({ $showFilter, $setShowFilter, $valueFilter, $setValueFilter, $
   return (
     <Div>
       <div onMouseLeave={() => $setShowFilter(false)}>
-        <button type="button" onMouseEnter={() => $setShowFilter(true)}>
+        <button type="button" onMouseEnter={() => $setShowFilter(true)} className={$showFilter ? "active" : ""}>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M4.48438 2.19995C4.48438 2.87305 3.93872 3.4187 3.26562 3.4187C2.59253 3.4187 2.04688 2.87305 2.04688 2.19995C2.04688 1.52685 2.59253 0.981201 3.26562 0.981201C3.93872 0.981201 4.48438 1.52685 4.48438 2.19995Z"
@@ -59,7 +66,7 @@ const Filters = ({ $showFilter, $setShowFilter, $valueFilter, $setValueFilter, $
         <Dropdown $show={$showFilter} $value={$valueFilter} $onChangeValue={$setValueFilter} $items={["Complete", "Incomplete"]} />
       </div>
       <div onMouseLeave={() => $setShowSort(false)}>
-        <button type="button" onMouseEnter={() => $setShowSort(true)}>
+        <button type="button" onMouseEnter={() => $setShowSort(true)} className={$showSort ? "active" : ""}>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M9.00046 11.9651C9.14691 12.1116 9.38434 12.1116 9.53079 11.9651L11.9173 9.57863C12.0637 9.43218 12.0637 9.19475 11.9173 9.0483C11.7708 8.90185 11.5334 8.90185 11.3869 9.0483L9.26562 11.1696L7.1443 9.0483C6.99786 8.90185 6.76042 8.90185 6.61397 9.0483C6.46753 9.19475 6.46753 9.43218 6.61397 9.57863L9.00046 11.9651ZM9.64062 1.69995C9.64062 1.49284 9.47273 1.32495 9.26562 1.32495C9.05852 1.32495 8.89062 1.49284 8.89062 1.69995L9.64062 1.69995ZM9.64062 11.7L9.64062 1.69995L8.89062 1.69995L8.89062 11.7L9.64062 11.7Z"
