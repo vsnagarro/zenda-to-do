@@ -16,6 +16,8 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'TWK Lausanne', sans-serif;
     font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.375;
     background: linear-gradient(90deg, ${colors.backgroundGradientStart} 0%, ${colors.backgroundGradientEnd} 100%);
     color: ${colors.textPrimary};
   }
