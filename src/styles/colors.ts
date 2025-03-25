@@ -58,13 +58,14 @@ const colors = {
   buttonDisabledText: baseColors.grey.light,
 
   // Dropdown
-  dropdownRestingBackground: "transparent",
-  dropdownHoverBackground: "#F0F0F0",
+  dropdownBackground: baseColors.black,
+  dropdownBorder: baseColors.white,
   dropdownSelectedBackground: "#E0E0E0",
   dropdownSelectedBar: baseColors.blue.primary,
   dropdownText: baseColors.black,
   dropdownHoverText: baseColors.black,
 
+  modalBackdrop: "rgba(0, 0, 0, 0.2)",
   modalBackground: "#191919", // Modal background
   modalBorder: "#515151", // Modal border color
   textAreaEditingBackground: "#466AA133", // Background when textarea is being edited

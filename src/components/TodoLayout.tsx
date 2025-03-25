@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import TodoList from "./TodoList";
 import Modal from "./Modal";
@@ -33,15 +33,28 @@ const CreateButton = styled(Button)`
 
 function TodoLayout({ todos, onEdit, onSave, onCloseModal, isModalOpen, editingTodo }: any) {
   const [search, setSearch] = useState("");
-
   const filteredTodos = todos.filter((todo: any) => todo.text.toLowerCase().includes(search.toLowerCase()));
+
+  const [showFilter, setShowFilter] = useState(false);
+  const [valueFilter, setValueFilter] = useState("");
+  const [showSort, setShowSort] = useState(false);
+  const [valueSort, setValueSort] = useState("");
 
   return (
     <Layout>
       <H1>To-Do</H1>
       <Actions>
         <SearchBar placeholder="Search Tasks" value={search} onChange={(e) => setSearch(e.target.value)} />
-        <Filters onFilter={() => console.log("Filter: Completed")} onSort={() => console.log("Sort: Newest")} />
+        <Filters
+          $showFilter={showFilter}
+          $setShowFilter={setShowFilter}
+          $valueFilter={valueFilter}
+          $setValueFilter={setValueFilter}
+          $showSort={showSort}
+          $setShowSort={setShowSort}
+          $valueSort={valueSort}
+          $setValueSort={setValueSort}
+        />
       </Actions>
       <TodoList todos={filteredTodos} onEdit={onEdit} />
       <CreateButton $variant="primary" onClick={() => onEdit(null)}>
@@ -50,7 +63,7 @@ function TodoLayout({ todos, onEdit, onSave, onCloseModal, isModalOpen, editingT
           <path d="M8.01562 0.199951V16.2M0.015625 8.19995H16.0156" stroke="white" strokeWidth="0.75" />
         </svg>
       </CreateButton>
-      {isModalOpen && <Modal isOpen={isModalOpen} onClose={onCloseModal} onSave={onSave} todo={editingTodo} />}
+      {isModalOpen && <Modal isOpen={isModalOpen} onClose={onCloseModal} onSave={onSave} todo={editingTodo} title="Create New To-Do" />}
     </Layout>
   );
 }
