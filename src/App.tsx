@@ -4,11 +4,11 @@ import useTodoStore from "./store/useTodoStore";
 import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
-  const { todos, addTodo, updateTodo } = useTodoStore();
+  const { todos, addTodo, updateTodo, deleteTodo } = useTodoStore();
   const [isModalOpen, setModalOpen] = useState(true);
-  const [editingTodo, setEditingTodo] = useState<null | { id: number; text: string }>(null);
+  const [editingTodo, setEditingTodo] = useState<null | { id: number; text: string; completed: boolean }>(null);
 
-  const handleEditTodo = (todo: { id: number; text: string }) => {
+  const handleEditTodo = (todo: { id: number; text: string; completed: boolean }) => {
     setEditingTodo(todo);
     setModalOpen(true);
   };
@@ -30,7 +30,16 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <TodoLayout todos={todos} onEdit={handleEditTodo} onSave={handleSaveTodo} onCloseModal={handleCloseModal} isModalOpen={isModalOpen} editingTodo={editingTodo} />
+      <TodoLayout
+        todos={todos}
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
+        onEdit={handleEditTodo}
+        onSave={handleSaveTodo}
+        onCloseModal={handleCloseModal}
+        isModalOpen={isModalOpen}
+        editingTodo={editingTodo}
+      />
     </>
   );
 }

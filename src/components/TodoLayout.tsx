@@ -31,7 +31,7 @@ const CreateButton = styled(Button)`
   right: 20px;
 `;
 
-function TodoLayout({ todos, onEdit, onSave, onCloseModal, isModalOpen, editingTodo }: any) {
+function TodoLayout({ todos, updateTodo, deleteTodo, onEdit, onSave, onCloseModal, isModalOpen, editingTodo }: any) {
   const [search, setSearch] = useState("");
   const filteredTodos = todos.filter((todo: any) => todo.text.toLowerCase().includes(search.toLowerCase()));
 
@@ -56,7 +56,7 @@ function TodoLayout({ todos, onEdit, onSave, onCloseModal, isModalOpen, editingT
           $setValueSort={setValueSort}
         />
       </Actions>
-      <TodoList todos={filteredTodos} onEdit={onEdit} />
+      <TodoList todos={filteredTodos} updateTodo={updateTodo} deleteTodo={deleteTodo} onEdit={onEdit} />
       <CreateButton $variant="primary" onClick={() => onEdit(null)}>
         Create
         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

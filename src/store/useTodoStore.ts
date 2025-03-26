@@ -54,14 +54,14 @@ const useTodoStore = create<TodoStore>()(
       },
 
       // Update a to-do
-      updateTodo: (id, text) => {
-        if (!text.trim()) {
+      updateTodo: (id: number, text: string, completed: boolean) => {
+        if (!text?.trim()) {
           console.error("Cannot update to an empty text.");
           return;
         }
         set(
           (state) => ({
-            todos: state.todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)),
+            todos: state.todos.map((todo) => (todo.id === id ? { ...todo, text, completed } : todo)),
           }),
           false,
           "updateTodo"

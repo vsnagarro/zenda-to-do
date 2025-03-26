@@ -71,18 +71,36 @@ function Modal({ isOpen, onSave, onClose, title, todo }: ModalProps) {
         <ModalHeader>
           <h2>{title}</h2>
           <button type="button" title="close" onClick={onClose}>
-            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.09863 0.533203L16.432 15.8665M16.432 0.533203L1.09863 15.8665" stroke="white" strokeWidth="0.75" />
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.09863 0.533203L16.432 15.8665M16.432 0.533203L1.09863 15.8665"
+                stroke="white"
+                strokeWidth="0.75"
+              />
             </svg>
           </button>
         </ModalHeader>
-        <TextArea value={description} placeholder="Enter Description" onChange={(e) => setDescription(e.target.value)} />
+        <TextArea
+          value={description}
+          placeholder="Enter Description"
+          onChange={(e) => setDescription(e.target.value)}
+        />
 
         <ModalFooter>
           <Button $variant="tertiary" onClick={onClose}>
             Cancel
           </Button>
-          <Button $variant="primary" onClick={() => onSave(description)} disabled={!description}>
+          <Button
+            $variant="primary"
+            onClick={() => onSave(description)}
+            disabled={!description}
+          >
             {todo ? "Update" : "Create"}
           </Button>
         </ModalFooter>
