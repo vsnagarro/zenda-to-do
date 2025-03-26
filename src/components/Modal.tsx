@@ -11,7 +11,7 @@ interface ModalProps {
   title?: string;
   todo?: {
     text: string;
-    status: "pending" | "completed";
+    completed: boolean;
   };
 }
 
@@ -91,7 +91,6 @@ function Modal({ isOpen, onSave, onClose, title, todo }: ModalProps) {
           placeholder="Enter Description"
           onChange={(e) => setDescription(e.target.value)}
         />
-
         <ModalFooter>
           <Button $variant="tertiary" onClick={onClose}>
             Cancel

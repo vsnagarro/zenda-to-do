@@ -1,4 +1,3 @@
-// Base color palette
 const baseColors = {
   white: "#FFFFFF",
   whiteTransparent05: "#FFFFFF05",
@@ -28,14 +27,12 @@ const baseColors = {
 };
 
 const colors = {
-  // Original colors
   backgroundGradientStart: baseColors.darkBlue.lighter,
   backgroundGradientEnd: baseColors.darkBlue.darker,
   textPrimary: baseColors.white,
   textSecondary: baseColors.grey.medium,
   borderColor: baseColors.grey.light,
 
-  // Text fields
   borderColorResting: baseColors.charcoal,
   borderColorActive: baseColors.white,
   colorResting: baseColors.whiteTransparent05,
@@ -43,20 +40,17 @@ const colors = {
   backgroundResting: baseColors.whiteTransparent05,
   backgroundActive: baseColors.blue.transparent,
 
-  // TextArea
   textAreaBackground: "#1E1E1E",
   textAreaBorder: baseColors.black.light,
   textAreaEditingBackground: "#212934",
   textAreaColor: baseColors.white,
   textAreaEditingBorder: baseColors.white,
 
-  // Checkbox
   checkboxBorder: baseColors.white,
   checkboxBackground: baseColors.whiteTransparent05,
   checkboxTickWhite: baseColors.white,
   checkboxTickDark: baseColors.black.dark,
 
-  // Buttons
   buttonPrimaryText: baseColors.white,
   buttonPrimaryBackground: baseColors.blue.primary,
   buttonPrimaryHoverBackground: baseColors.blue.secondary,
@@ -72,7 +66,6 @@ const colors = {
   buttonTertiaryDisabledText: baseColors.grey.dark,
   buttonDisabledText: baseColors.grey.light,
 
-  // Dropdown
   dropdownBackground: baseColors.black.dark,
   dropdownBorder: baseColors.white,
   dropdownSelected: baseColors.blue.primary,
@@ -86,7 +79,6 @@ const colors = {
   cancelButtonBorder: baseColors.blue.primary,
   createButtonBackground: baseColors.blue.primary,
 
-  // Searchbar
   searchBarText: baseColors.grey.light,
   searchBarTextActive: baseColors.white,
   searchBarBackground: baseColors.whiteTransparent05,

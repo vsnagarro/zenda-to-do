@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-interface Todo {
+export interface Todo {
+  creator: string;
+  createdAt: string;
   id: number;
   text: string;
   completed: boolean;
@@ -13,31 +15,66 @@ interface TodoStore {
   deleteTodo: (id: number) => void;
   updateTodo: (id: number, text: string) => void;
   toggleTodo: (id: number) => void;
-  filterTodos: (status: "completed" | "incomplete") => Todo[];
+  filterTodos: (status: "complete" | "incomplete") => Todo[];
   sortTodos: (order: "newest" | "oldest") => Todo[];
 }
+
+const initialTodos: Todo[] = [
+  {
+    id: 1743004295456,
+    createdAt: "8:21pm",
+    creator: "Anonymous",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    completed: false,
+  },
+  {
+    id: 1743004295457,
+    createdAt: "9:15pm",
+    creator: "Anonymous",
+    text: "Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    completed: true,
+  },
+  {
+    id: 1743004295458,
+    createdAt: "9:25pm",
+    creator: "Anonymous",
+    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    completed: false,
+  },
+];
 
 const useTodoStore = create<TodoStore>()(
   devtools(
     (set, get) => ({
-      todos: [],
-
-      // Add a new to-do
+      todos: initialTodos,
       addTodo: (text) => {
         if (!text.trim()) {
           console.error("Cannot add an empty to-do.");
           return;
         }
         set(
-          (state) => ({
-            todos: [...state.todos, { id: Date.now(), text, completed: false }],
-          }),
+          (state) => {
+            const currentDate = new Date();
+            return {
+              todos: [
+                ...state.todos,
+                {
+                  id: currentDate.getTime(),
+                  createdAt: new Date()
+                    .toLocaleTimeString()
+                    .toLowerCase()
+                    .replace(/\:\d\d\s/, ""),
+                  creator: "Anonymous",
+                  text,
+                  completed: false,
+                },
+              ],
+            };
+          },
           false,
-          "addTodo"
+          "addTodo",
         );
       },
-
-      // Delete a to-do
       deleteTodo: (id) => {
         const todos = get().todos;
         if (!todos.find((todo) => todo.id === id)) {
@@ -49,11 +86,9 @@ const useTodoStore = create<TodoStore>()(
             todos: state.todos.filter((todo) => todo.id !== id),
           }),
           false,
-          "deleteTodo"
+          "deleteTodo",
         );
       },
-
-      // Update a to-do
       updateTodo: (id: number, text: string, completed: boolean) => {
         if (!text?.trim()) {
           console.error("Cannot update to an empty text.");
@@ -61,14 +96,14 @@ const useTodoStore = create<TodoStore>()(
         }
         set(
           (state) => ({
-            todos: state.todos.map((todo) => (todo.id === id ? { ...todo, text, completed } : todo)),
+            todos: state.todos.map((todo) =>
+              todo.id === id ? { ...todo, text, completed } : todo,
+            ),
           }),
           false,
-          "updateTodo"
+          "updateTodo",
         );
       },
-
-      // Toggle a to-do's completion state
       toggleTodo: (id) => {
         const todos = get().todos;
         if (!todos.find((todo) => todo.id === id)) {
@@ -77,27 +112,60 @@ const useTodoStore = create<TodoStore>()(
         }
         set(
           (state) => ({
-            todos: state.todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
+            todos: state.todos.map((todo) =>
+              todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+            ),
           }),
           false,
-          "toggleTodo"
+          "toggleTodo",
         );
       },
-
-      // Filter todos based on status
       filterTodos: (status) => {
         const todos = get().todos;
-        return [...todos].filter((todo) => (status === "completed" ? todo.completed : !todo.completed));
+        if (!status) {
+          return [...todos];
+        }
+        return [...todos].filter((todo) => {
+          const lowerCaseStatus = status.toLocaleLowerCase();
+          if (lowerCaseStatus === "complete") {
+            return todo.completed;
+          }
+          if (lowerCaseStatus === "incomplete") {
+            return !todo.completed;
+          }
+          return true;
+        });
       },
 
-      // Sort todos by newest or oldest
       sortTodos: (order) => {
         const todos = get().todos;
-        return [...todos].sort((a, b) => (order === "newest" ? b.id - a.id : a.id - b.id));
+        if (!order) {
+          return [...todos];
+        }
+
+        return [...todos].sort((a, b) => {
+          const parseTime = (time: string) => {
+            const [hoursMinutes, meridiem] = time.split(/(am|pm)/i);
+            let [hours, minutes] = hoursMinutes.split(":").map(Number);
+
+            if (meridiem.toLowerCase() === "pm" && hours !== 12) {
+              hours += 12;
+            } else if (meridiem.toLowerCase() === "am" && hours === 12) {
+              hours = 0;
+            }
+
+            return hours * 60 + minutes;
+          };
+
+          const timeA = parseTime(a.createdAt);
+          const timeB = parseTime(b.createdAt);
+
+          return order.toLocaleLowerCase() === "newest" ? timeB - timeA : timeA - timeB;
+        });
       },
     }),
-    { name: "TodoStore" }
-  ) // Name for Redux DevTools
+    { name: "TodoStore" },
+  ),
 );
 
 export default useTodoStore;

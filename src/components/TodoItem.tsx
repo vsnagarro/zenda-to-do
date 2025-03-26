@@ -1,21 +1,36 @@
 import styled from "styled-components";
 import Checkbox from "../styles/Checkbox";
 import colors from "../styles/colors";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { Todo } from "../store/useTodoStore";
+
+interface TodoItemProps {
+  todo: Todo;
+  updateTodo: (id: number, text: string, completed: boolean) => void;
+  deleteTodo: (id: number) => void;
+  onEdit: (todo: Todo) => void;
+}
 
 const Item = styled.div`
+  width: 100%;
   padding: 1.25rem;
   color: white;
   &:hover {
     background: ${colors.backgroundResting};
   }
 `;
-const ItemHeader = styled.div``;
+const ItemHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 1rem 4.5rem;
+`;
 const ItemContent = styled.div`
   display: flex;
-  align-items: top;
   gap: 3rem;
   justify-content: space-between;
+`;
+const ItemText = styled.div`
+  flex: 1;
 `;
 const ContextMenu = styled.div<{ $isVisible: boolean; $top: number; $left: number }>`
   position: fixed;
@@ -43,17 +58,16 @@ const ContextMenuItem = styled.div`\
   cursor: pointer;
 `;
 
-function TodoItem({ todo, updateTodo, deleteTodo, onEdit }: any) {
-  const itemRef = useRef(null);
+function TodoItem({ todo, updateTodo, deleteTodo, onEdit }: TodoItemProps) {
   const [contextMenu, setContextMenu] = useState({
     $isVisible: false,
     x: 0,
     y: 0,
   });
 
-  // Function to handle right click
   const handleContextMenu = (event: React.MouseEvent) => {
-    event.preventDefault(); // Prevent the default browser context menu
+    event.preventDefault();
+
     setContextMenu({
       $isVisible: true,
       x: event.clientX + 8,
@@ -61,7 +75,6 @@ function TodoItem({ todo, updateTodo, deleteTodo, onEdit }: any) {
     });
   };
 
-  // Function to close the context menu
   const handleCloseContextMenu = () => {
     setContextMenu({
       $isVisible: false,
@@ -71,28 +84,38 @@ function TodoItem({ todo, updateTodo, deleteTodo, onEdit }: any) {
   };
 
   return (
-    <Item>
-      <ItemHeader></ItemHeader>
-      <ItemContent>
-        <div>
-          <Checkbox $isChecked={todo.completed} onClick={() => updateTodo(todo.id, todo.text, !todo.completed)} />
-        </div>
-        <span onContextMenu={handleContextMenu} ref={itemRef} onDoubleClick={() => onEdit(todo)}>
-          {todo.text}
-        </span>
-      </ItemContent>
-
-      <ContextMenu
-        $isVisible={contextMenu.$isVisible}
-        $top={contextMenu.y}
-        $left={contextMenu.x}
-        onClick={handleCloseContextMenu} // Close menu on click
-      >
-        <ContextMenuItem onClick={() => deleteTodo(todo.id)}>Delete</ContextMenuItem>
-      </ContextMenu>
-
-      {contextMenu.$isVisible && <ContextBackdrop onClick={handleCloseContextMenu} />}
-    </Item>
+    <>
+      <Item>
+        <ItemHeader>
+          <p>{todo.creator}</p>
+          <p>{todo.createdAt}</p>
+        </ItemHeader>
+        <ItemContent>
+          <div>
+            <Checkbox
+              $isChecked={todo.completed}
+              onClick={() => updateTodo(todo.id, todo.text, !todo.completed)}
+            />
+          </div>
+          <ItemText onContextMenu={handleContextMenu} onDoubleClick={() => onEdit(todo)}>
+            {todo.text}
+          </ItemText>
+        </ItemContent>
+      </Item>
+      {contextMenu.$isVisible && (
+        <>
+          <ContextMenu
+            $isVisible={contextMenu.$isVisible}
+            $top={contextMenu.y}
+            $left={contextMenu.x}
+            onClick={handleCloseContextMenu}
+          >
+            <ContextMenuItem onClick={() => deleteTodo(todo.id)}>Delete</ContextMenuItem>
+          </ContextMenu>
+          <ContextBackdrop onClick={handleCloseContextMenu} />
+        </>
+      )}
+    </>
   );
 }
 

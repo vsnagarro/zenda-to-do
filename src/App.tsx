@@ -4,9 +4,14 @@ import useTodoStore from "./store/useTodoStore";
 import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
-  const { todos, addTodo, updateTodo, deleteTodo } = useTodoStore();
-  const [isModalOpen, setModalOpen] = useState(true);
-  const [editingTodo, setEditingTodo] = useState<null | { id: number; text: string; completed: boolean }>(null);
+  const { todos, addTodo, updateTodo, deleteTodo, filterTodos, sortTodos } =
+    useTodoStore();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [editingTodo, setEditingTodo] = useState<null | {
+    id: number;
+    text: string;
+    completed: boolean;
+  }>(null);
 
   const handleEditTodo = (todo: { id: number; text: string; completed: boolean }) => {
     setEditingTodo(todo);
@@ -39,6 +44,8 @@ function App() {
         onCloseModal={handleCloseModal}
         isModalOpen={isModalOpen}
         editingTodo={editingTodo}
+        filterTodos={filterTodos}
+        sortTodos={sortTodos}
       />
     </>
   );
