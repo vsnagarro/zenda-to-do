@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import TodoList from "./TodoList";
 import Modal from "./Modal";
 import Button from "../styles/Button";
 import SearchBar from "./SearchBar";
 import Filters from "./Filters";
-import { Todo } from "../store/useTodoStore";
+import useTodoStore, { Value, Todo } from "../store/useTodoStore";
+import { filterTodos, searchTodos, sortTodos } from "../utilities";
 
 interface TodolayoutProps {
   todos: Todo[];
@@ -15,9 +16,7 @@ interface TodolayoutProps {
   onSave: (text: string) => void;
   onCloseModal: () => void;
   isModalOpen: boolean;
-  editingTodo: Todo;
-  filterTodos: (value: string) => Todo[];
-  sortTodos: (value: string) => Todo[];
+  editingTodo: Todo | null;
 }
 
 const Layout = styled.div`
@@ -54,32 +53,25 @@ function TodoLayout({
   onCloseModal,
   isModalOpen,
   editingTodo,
-  filterTodos,
-  sortTodos,
 }: TodolayoutProps) {
   const [search, setSearch] = useState("");
   const [showFilter, setShowFilter] = useState(false);
-  const [valueFilter, setValueFilter] = useState("");
+  const [valueFilter, setValueFilter] = useState<Value["value"]>("");
   const [showSort, setShowSort] = useState(false);
-  const [valueSort, setValueSort] = useState("");
-  const [todoList, setTodoList] = useState(todos);
-
-  useEffect(() => {
-    const searchedText = todos.filter((todo: any) =>
-      todo.text.toLowerCase().includes(search.toLowerCase()),
-    );
-    setTodoList(searchedText);
-  }, [search]);
-
-  useEffect(() => {
-    const filteredText = filterTodos(valueFilter);
-    setTodoList(filteredText);
-  }, [valueFilter]);
-
-  useEffect(() => {
-    const sortedText = sortTodos(valueSort);
-    setTodoList(sortedText);
-  }, [valueSort]);
+  const [valueSort, setValueSort] = useState<Value["value"]>("");
+  const updatedTodoList = () => {
+    let updatedTodoList: Todo[] = [...todos];
+    if (search) {
+      updatedTodoList = searchTodos(updatedTodoList, search);
+    }
+    if (valueFilter) {
+      updatedTodoList = filterTodos(updatedTodoList, valueFilter);
+    }
+    if (valueSort) {
+      updatedTodoList = sortTodos(updatedTodoList, valueSort);
+    }
+    return updatedTodoList;
+  };
 
   return (
     <Layout>
@@ -102,7 +94,7 @@ function TodoLayout({
         />
       </Actions>
       <TodoList
-        todos={todoList}
+        todos={updatedTodoList()}
         updateTodo={updateTodo}
         deleteTodo={deleteTodo}
         onEdit={onEdit}

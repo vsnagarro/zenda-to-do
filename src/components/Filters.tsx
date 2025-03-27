@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
 import colors from "../styles/colors";
+import { Value } from "../store/useTodoStore";
+import { toWordCase } from "../utilities";
 interface FiltersProps {
   $showFilter: boolean;
   $setShowFilter: (value: boolean) => void;
-  $valueFilter: string;
-  $setValueFilter: (value: string) => void;
+  $valueFilter: Value["value"];
+  $setValueFilter: (value: Value["value"]) => void;
   $showSort: boolean;
   $setShowSort: (value: boolean) => void;
-  $valueSort: string;
-  $setValueSort: (value: string) => void;
+  $valueSort: Value["value"];
+  $setValueSort: (value: Value["value"]) => void;
 }
 
 const Div = styled.div`
@@ -92,13 +94,13 @@ const Filters = ({
               strokeWidth="0.5625"
             />
           </svg>
-          Filter{$valueFilter ? `: ${$valueFilter}` : ""}
+          Filter{$valueFilter ? `: ${toWordCase($valueFilter)}` : ""}
         </button>
         <Dropdown
           $show={$showFilter}
-          $value={$valueFilter}
+          $value={{ value: $valueFilter }}
           $onChangeValue={$setValueFilter}
-          $items={["Complete", "Incomplete"]}
+          $items={["complete", "incomplete"]}
         />
       </div>
       <div onMouseLeave={() => $setShowSort(false)}>
@@ -123,12 +125,12 @@ const Filters = ({
               fill="white"
             />
           </svg>
-          Sort{$valueSort ? `: ${$valueSort}` : ""}
+          Sort{$valueSort ? `: ${toWordCase($valueSort)}` : ""}
           <Dropdown
             $show={$showSort}
-            $value={$valueSort}
+            $value={{ value: $valueSort }}
             $onChangeValue={$setValueSort}
-            $items={["Newest", "Oldest"]}
+            $items={["newest", "oldest"]}
           />
         </button>
       </div>

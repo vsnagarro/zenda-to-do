@@ -9,14 +9,19 @@ export interface Todo {
   completed: boolean;
 }
 
+export interface Value {
+  value: "complete" | "incomplete" | "newest" | "oldest" | "";
+}
+
 interface TodoStore {
   todos: Todo[];
   addTodo: (text: string) => void;
   deleteTodo: (id: number) => void;
   updateTodo: (id: number, text: string) => void;
   toggleTodo: (id: number) => void;
-  filterTodos: (status: "complete" | "incomplete") => Todo[];
-  sortTodos: (order: "newest" | "oldest") => Todo[];
+  filterTodos: ({ value }: Value) => Todo[];
+  sortTodos: ({ value }: Value) => Todo[];
+  searchTodos: (search: string) => Todo[];
 }
 
 const initialTodos: Todo[] = [
@@ -119,49 +124,6 @@ const useTodoStore = create<TodoStore>()(
           false,
           "toggleTodo",
         );
-      },
-      filterTodos: (status) => {
-        const todos = get().todos;
-        if (!status) {
-          return [...todos];
-        }
-        return [...todos].filter((todo) => {
-          const lowerCaseStatus = status.toLocaleLowerCase();
-          if (lowerCaseStatus === "complete") {
-            return todo.completed;
-          }
-          if (lowerCaseStatus === "incomplete") {
-            return !todo.completed;
-          }
-          return true;
-        });
-      },
-
-      sortTodos: (order) => {
-        const todos = get().todos;
-        if (!order) {
-          return [...todos];
-        }
-
-        return [...todos].sort((a, b) => {
-          const parseTime = (time: string) => {
-            const [hoursMinutes, meridiem] = time.split(/(am|pm)/i);
-            let [hours, minutes] = hoursMinutes.split(":").map(Number);
-
-            if (meridiem.toLowerCase() === "pm" && hours !== 12) {
-              hours += 12;
-            } else if (meridiem.toLowerCase() === "am" && hours === 12) {
-              hours = 0;
-            }
-
-            return hours * 60 + minutes;
-          };
-
-          const timeA = parseTime(a.createdAt);
-          const timeB = parseTime(b.createdAt);
-
-          return order.toLocaleLowerCase() === "newest" ? timeB - timeA : timeA - timeB;
-        });
       },
     }),
     { name: "TodoStore" },

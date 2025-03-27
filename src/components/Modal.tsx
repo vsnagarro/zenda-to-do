@@ -3,16 +3,14 @@ import styled from "styled-components";
 import TextArea from "../styles/Textarea";
 import Button from "../styles/Button";
 import colors from "../styles/colors";
+import { Todo } from "../store/useTodoStore";
 
 interface ModalProps {
   isOpen: boolean;
   onSave: (description: string) => void;
   onClose: () => void;
   title?: string;
-  todo?: {
-    text: string;
-    completed: boolean;
-  };
+  todo?: Todo | null;
 }
 
 const ModalWrapper = styled.div`
@@ -97,7 +95,7 @@ function Modal({ isOpen, onSave, onClose, title, todo }: ModalProps) {
           </Button>
           <Button
             $variant="primary"
-            onClick={() => onSave(description)}
+            onClick={() => description && onSave(description)}
             disabled={!description}
           >
             {todo ? "Update" : "Create"}

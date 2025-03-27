@@ -1,20 +1,15 @@
 import { useState } from "react";
 import TodoLayout from "./components/TodoLayout";
-import useTodoStore from "./store/useTodoStore";
+import useTodoStore, { Todo } from "./store/useTodoStore";
 import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
-  const { todos, addTodo, updateTodo, deleteTodo, filterTodos, sortTodos } =
-    useTodoStore();
+  const { todos, addTodo, updateTodo, deleteTodo } = useTodoStore();
   const [isModalOpen, setModalOpen] = useState(false);
-  const [editingTodo, setEditingTodo] = useState<null | {
-    id: number;
-    text: string;
-    completed: boolean;
-  }>(null);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
-  const handleEditTodo = (todo: { id: number; text: string; completed: boolean }) => {
-    setEditingTodo(todo);
+  const handleEditTodo = (todo: Todo | null) => {
+    todo && setEditingTodo(todo);
     setModalOpen(true);
   };
 
@@ -44,8 +39,6 @@ function App() {
         onCloseModal={handleCloseModal}
         isModalOpen={isModalOpen}
         editingTodo={editingTodo}
-        filterTodos={filterTodos}
-        sortTodos={sortTodos}
       />
     </>
   );

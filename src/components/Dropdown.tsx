@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import colors from "../styles/colors";
+import { Value } from "../store/useTodoStore";
+import { toWordCase } from "../utilities";
 
 interface DropdownItemProps {
   $show: boolean;
@@ -8,9 +10,9 @@ interface DropdownItemProps {
 }
 interface DropdownProps {
   $show: boolean;
-  $value: string;
-  $onChangeValue: (value: string) => void;
-  $items: string[];
+  $value: Value;
+  $onChangeValue: (value: Value["value"]) => void;
+  $items: Value["value"][];
 }
 const DropdownItem = styled.div<DropdownItemProps>`
   display: ${(props) => (props.$show ? "block" : "none")};
@@ -47,8 +49,12 @@ const Dropdown = ({ $show, $value, $onChangeValue, $items }: DropdownProps) => {
     <DropdownItem $show={$show}>
       <ul>
         {$items.map(($item) => (
-          <li key={$item} onClick={() => $onChangeValue($item)} className={$item === $value ? "selected" : ""}>
-            {$item}
+          <li
+            key={$item}
+            onClick={() => $item && $onChangeValue($item)}
+            className={$item && $item.toLowerCase() === `${$value}` ? "selected" : ""}
+          >
+            {toWordCase($item)}
           </li>
         ))}
         <li onClick={() => $onChangeValue("")}>Clear Filters</li>
