@@ -11,8 +11,11 @@ interface TodoListProps {
 
 const ListContainer = styled.div`
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
   scrollbar-gutter: stable;
+  &: hover {
+    overflow-y: auto;
+  }
 `;
 const NoItem = styled.div`
   text-align: center;
