@@ -2,6 +2,7 @@ import { useState } from "react";
 import TodoLayout from "./components/TodoLayout";
 import useTodoStore, { Todo } from "./store/useTodoStore";
 import GlobalStyles from "./styles/GlobalStyles";
+import Cursors from "./components/Cursors";
 
 function App() {
   const { todos, addTodo, updateTodo, deleteTodo } = useTodoStore();
@@ -20,7 +21,7 @@ function App() {
 
   const handleSaveTodo = (text: string) => {
     if (editingTodo) {
-      updateTodo(editingTodo.id, text);
+      updateTodo(editingTodo.id, text, editingTodo.completed);
     } else {
       addTodo(text);
     }
@@ -40,6 +41,7 @@ function App() {
         isModalOpen={isModalOpen}
         editingTodo={editingTodo}
       />
+      <Cursors />
     </>
   );
 }

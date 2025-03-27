@@ -1,6 +1,7 @@
 import React from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import Dropdown from "../src/components/Dropdown";
 import { Value } from "../src/store/useTodoStore";
 
@@ -19,10 +20,10 @@ describe("Dropdown Component", () => {
     defaultProps.$items.forEach((item) => {
       if (item) {
         const displayedItem = `${item[0].toUpperCase()}${item.slice(1)}`;
-        expect(screen.getByText(displayedItem)).toBeInTheDocument();
+        expect(screen.getByText(displayedItem)).toBeVisible();
       }
     });
-    expect(screen.getByText("Clear Filters")).toBeInTheDocument();
+    expect(screen.getByText("Clear Filters")).toBeVisible();
   });
 
   it("should not render anything when $show is false", () => {
