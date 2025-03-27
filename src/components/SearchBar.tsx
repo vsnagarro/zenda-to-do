@@ -11,10 +11,25 @@ const Div = styled.div`
   }
 `;
 
-const SearchBar = ({ placeholder, value, onChange }: { placeholder: string; value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) => {
+const SearchBar = ({
+  placeholder,
+  value,
+  onChange,
+}: {
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) => {
   return (
     <Div>
-      <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        role="img"
+        width="17"
+        height="17"
+        viewBox="0 0 17 17"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <circle cx="6.64648" cy="6.56836" r="5.5" stroke="white" strokeWidth="0.75" />
         <path d="M16.4395 16.3599L10.5645 10.4849" stroke="white" strokeWidth="0.75" />
       </svg>

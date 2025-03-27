@@ -10,7 +10,7 @@ interface DropdownItemProps {
 }
 interface DropdownProps {
   $show: boolean;
-  $value: Value;
+  $value: Value["value"];
   $onChangeValue: (value: Value["value"]) => void;
   $items: Value["value"][];
 }

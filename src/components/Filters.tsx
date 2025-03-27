@@ -98,7 +98,7 @@ const Filters = ({
         </button>
         <Dropdown
           $show={$showFilter}
-          $value={{ value: $valueFilter }}
+          $value={$valueFilter}
           $onChangeValue={$setValueFilter}
           $items={["complete", "incomplete"]}
         />
@@ -128,7 +128,7 @@ const Filters = ({
           Sort{$valueSort ? `: ${toWordCase($valueSort)}` : ""}
           <Dropdown
             $show={$showSort}
-            $value={{ value: $valueSort }}
+            $value={$valueSort}
             $onChangeValue={$setValueSort}
             $items={["newest", "oldest"]}
           />

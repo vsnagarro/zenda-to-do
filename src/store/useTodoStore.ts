@@ -17,11 +17,7 @@ interface TodoStore {
   todos: Todo[];
   addTodo: (text: string) => void;
   deleteTodo: (id: number) => void;
-  updateTodo: (id: number, text: string) => void;
-  toggleTodo: (id: number) => void;
-  filterTodos: ({ value }: Value) => Todo[];
-  sortTodos: ({ value }: Value) => Todo[];
-  searchTodos: (search: string) => Todo[];
+  updateTodo: (id: number, text: string, completed: boolean) => void;
 }
 
 const initialTodos: Todo[] = [
@@ -107,22 +103,6 @@ const useTodoStore = create<TodoStore>()(
           }),
           false,
           "updateTodo",
-        );
-      },
-      toggleTodo: (id) => {
-        const todos = get().todos;
-        if (!todos.find((todo) => todo.id === id)) {
-          console.error(`Todo with ID ${id} not found.`);
-          return;
-        }
-        set(
-          (state) => ({
-            todos: state.todos.map((todo) =>
-              todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-            ),
-          }),
-          false,
-          "toggleTodo",
         );
       },
     }),

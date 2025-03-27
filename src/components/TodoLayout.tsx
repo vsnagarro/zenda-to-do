@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import Button from "../styles/Button";
 import SearchBar from "./SearchBar";
 import Filters from "./Filters";
-import useTodoStore, { Value, Todo } from "../store/useTodoStore";
+import { Value, Todo } from "../store/useTodoStore";
 import { filterTodos, searchTodos, sortTodos } from "../utilities";
 
 interface TodolayoutProps {

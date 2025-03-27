@@ -93,6 +93,7 @@ function TodoItem({ todo, updateTodo, deleteTodo, onEdit }: TodoItemProps) {
         <ItemContent>
           <div>
             <Checkbox
+              role="checkbox"
               $isChecked={todo.completed}
               onClick={() => updateTodo(todo.id, todo.text, !todo.completed)}
             />
@@ -112,7 +113,10 @@ function TodoItem({ todo, updateTodo, deleteTodo, onEdit }: TodoItemProps) {
           >
             <ContextMenuItem onClick={() => deleteTodo(todo.id)}>Delete</ContextMenuItem>
           </ContextMenu>
-          <ContextBackdrop onClick={handleCloseContextMenu} />
+          <ContextBackdrop
+            data-testid="context-backdrop"
+            onClick={handleCloseContextMenu}
+          />
         </>
       )}
     </>
