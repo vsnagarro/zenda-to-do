@@ -20,34 +20,19 @@ interface TodoStore {
   updateTodo: (id: number, text: string, completed: boolean) => void;
 }
 
-const initialTodos: Todo[] = [
-  {
-    id: 1743004295456,
-    createdAt: "8:21pm",
-    creator: "Anonymous",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    completed: false,
-  },
-  {
-    id: 1743004295457,
-    createdAt: "9:15pm",
-    creator: "Anonymous",
-    text: "Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    completed: true,
-  },
-  {
-    id: 1743004295458,
-    createdAt: "9:25pm",
-    creator: "Anonymous",
-    text: "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    completed: false,
-  },
-];
+const loadTodosFromLocalStorage = (): Todo[] => {
+  const savedTodos = localStorage.getItem("todos");
+  return savedTodos ? JSON.parse(savedTodos) : [];
+};
+
+const saveTodosToLocalStorage = (todos: Todo[]) => {
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
 
 const useTodoStore = create<TodoStore>()(
   devtools(
     (set, get) => ({
-      todos: initialTodos,
+      todos: loadTodosFromLocalStorage(), // Load todos from localStorage
       addTodo: (text) => {
         if (!text.trim()) {
           console.error("Cannot add an empty to-do.");
@@ -56,21 +41,21 @@ const useTodoStore = create<TodoStore>()(
         set(
           (state) => {
             const currentDate = new Date();
-            return {
-              todos: [
-                ...state.todos,
-                {
-                  id: currentDate.getTime(),
-                  createdAt: new Date()
-                    .toLocaleTimeString()
-                    .toLowerCase()
-                    .replace(/\:\d\d\s/, ""),
-                  creator: "Anonymous",
-                  text,
-                  completed: false,
-                },
-              ],
-            };
+            const updatedTodos = [
+              ...state.todos,
+              {
+                id: currentDate.getTime(),
+                createdAt: new Date()
+                  .toLocaleTimeString()
+                  .toLowerCase()
+                  .replace(/\:\d\d\s/, ""),
+                creator: "Anonymous",
+                text,
+                completed: false,
+              },
+            ];
+            saveTodosToLocalStorage(updatedTodos); // Save to localStorage
+            return { todos: updatedTodos };
           },
           false,
           "addTodo",
@@ -83,9 +68,11 @@ const useTodoStore = create<TodoStore>()(
           return;
         }
         set(
-          (state) => ({
-            todos: state.todos.filter((todo) => todo.id !== id),
-          }),
+          (state) => {
+            const updatedTodos = state.todos.filter((todo) => todo.id !== id);
+            saveTodosToLocalStorage(updatedTodos); // Save to localStorage
+            return { todos: updatedTodos };
+          },
           false,
           "deleteTodo",
         );
@@ -96,11 +83,13 @@ const useTodoStore = create<TodoStore>()(
           return;
         }
         set(
-          (state) => ({
-            todos: state.todos.map((todo) =>
+          (state) => {
+            const updatedTodos = state.todos.map((todo) =>
               todo.id === id ? { ...todo, text, completed } : todo,
-            ),
-          }),
+            );
+            saveTodosToLocalStorage(updatedTodos); // Save to localStorage
+            return { todos: updatedTodos };
+          },
           false,
           "updateTodo",
         );
