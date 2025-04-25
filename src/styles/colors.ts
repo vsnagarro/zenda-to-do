@@ -1,9 +1,14 @@
-// Base color palette
 const baseColors = {
   white: "#FFFFFF",
   whiteTransparent05: "#FFFFFF05",
+  whiteTransparent10: "#FFFFFF10",
   whiteTransparent90: "rgba(255, 255, 255, 0.9)",
-  black: "#000000",
+  black: {
+    light: "#515151",
+    medium: "#191919",
+    dark: "#000000",
+  },
+  blackTransparent20: "#00000020",
   grey: {
     light: "#CCCCCC",
     medium: "#B0B0B0",
@@ -22,14 +27,12 @@ const baseColors = {
 };
 
 const colors = {
-  // Original colors
   backgroundGradientStart: baseColors.darkBlue.lighter,
   backgroundGradientEnd: baseColors.darkBlue.darker,
   textPrimary: baseColors.white,
   textSecondary: baseColors.grey.medium,
   borderColor: baseColors.grey.light,
 
-  // Text fields
   borderColorResting: baseColors.charcoal,
   borderColorActive: baseColors.white,
   colorResting: baseColors.whiteTransparent05,
@@ -37,42 +40,45 @@ const colors = {
   backgroundResting: baseColors.whiteTransparent05,
   backgroundActive: baseColors.blue.transparent,
 
-  // Checkbox
+  textAreaBackground: "#1E1E1E",
+  textAreaBorder: baseColors.black.light,
+  textAreaEditingBackground: "#212934",
+  textAreaColor: baseColors.white,
+  textAreaEditingBorder: baseColors.white,
+
   checkboxBorder: baseColors.white,
   checkboxBackground: baseColors.whiteTransparent05,
   checkboxTickWhite: baseColors.white,
-  checkboxTickDark: baseColors.black,
+  checkboxTickDark: baseColors.black.dark,
 
-  // Buttons
   buttonPrimaryText: baseColors.white,
   buttonPrimaryBackground: baseColors.blue.primary,
   buttonPrimaryHoverBackground: baseColors.blue.secondary,
   buttonDisabledBackground: baseColors.grey.dark,
   buttonTextWhite: baseColors.white,
+  buttonBorderWhite: baseColors.whiteTransparent10,
 
   buttonTertiary: baseColors.blue.primary,
   buttonTertiaryText: baseColors.white,
-  buttonTertiaryHover: baseColors.blue.primary,
 
+  buttonTertiaryHoverBorder: baseColors.blue.primary,
+  buttonTertiaryHoverBackground: "transparent",
   buttonTertiaryDisabledText: baseColors.grey.dark,
   buttonDisabledText: baseColors.grey.light,
 
-  // Dropdown
-  dropdownBackground: baseColors.black,
+  dropdownBackground: baseColors.black.dark,
   dropdownBorder: baseColors.white,
-  dropdownSelectedBackground: "#E0E0E0",
+  dropdownSelected: baseColors.blue.primary,
   dropdownSelectedBar: baseColors.blue.primary,
-  dropdownText: baseColors.black,
-  dropdownHoverText: baseColors.black,
+  dropdownText: baseColors.black.dark,
+  dropdownHoverText: baseColors.black.dark,
 
-  modalBackdrop: "rgba(0, 0, 0, 0.2)",
-  modalBackground: "#191919", // Modal background
-  modalBorder: "#515151", // Modal border color
-  textAreaEditingBackground: "#466AA133", // Background when textarea is being edited
-  cancelButtonBorder: "#0E69F2", // Border-bottom for cancel button
-  createButtonBackground: "#0E69F2",
+  modalBackdrop: baseColors.blackTransparent20,
+  modalBackground: baseColors.black.medium,
+  modalBorder: baseColors.black.light,
+  cancelButtonBorder: baseColors.blue.primary,
+  createButtonBackground: baseColors.blue.primary,
 
-  // Searchbar
   searchBarText: baseColors.grey.light,
   searchBarTextActive: baseColors.white,
   searchBarBackground: baseColors.whiteTransparent05,

@@ -1,24 +1,23 @@
 import styled from "styled-components";
 import colors from "./colors";
 
-interface TextAreaProps {
-  $isEditing?: boolean;
-}
-
-const TextArea = styled.textarea<TextAreaProps>`
+const TextArea = styled.textarea`
   width: 100%;
   height: 100px;
-  border: 1px solid ${colors.modalBorder};
+  border: 1px solid ${colors.textAreaBorder};
   border-radius: 4px;
   padding: 12px;
+  resize: none;
+  background: ${colors.textAreaBackground};
+  color: ${colors.textAreaColor};
+  font-family: "TWK Lausanne", sans-serif;
   font-size: 16px;
-  resize: none; /* Disable resizing */
-  background: ${(props) => (props.$isEditing ? colors.textAreaEditingBackground : "transparent")};
-  color: white;
+  font-weight: 200;
 
   &:focus {
     outline: none;
-    border-color: ${colors.createButtonBackground};
+    background: ${colors.textAreaEditingBackground};
+    border: 1px solid ${colors.textAreaEditingBorder};
   }
 `;
 

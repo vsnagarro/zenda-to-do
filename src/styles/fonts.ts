@@ -1,7 +1,6 @@
 import { css } from "styled-components";
 
 const fonts = css`
-  /* TWK Lausanne - Weight 50 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-50.ttf") format("truetype");
@@ -15,7 +14,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 100 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-100.ttf") format("truetype");
@@ -29,7 +27,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 150 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-150.ttf") format("truetype");
@@ -43,7 +40,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 200 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-200.ttf") format("truetype");
@@ -57,7 +53,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 250 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-250.ttf") format("truetype");
@@ -71,7 +66,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 300 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-300.ttf") format("truetype");
@@ -85,7 +79,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 350 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-350.ttf") format("truetype");
@@ -99,7 +92,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 400 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-400.ttf") format("truetype");
@@ -113,7 +105,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 450 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-450.ttf") format("truetype");
@@ -127,7 +118,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 500 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-500.ttf") format("truetype");
@@ -141,7 +131,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 550 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-550.ttf") format("truetype");
@@ -155,7 +144,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 600 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-600.ttf") format("truetype");
@@ -169,7 +157,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 650 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-650.ttf") format("truetype");
@@ -183,7 +170,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 700 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-700.ttf") format("truetype");
@@ -197,7 +183,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 750 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-750.ttf") format("truetype");
@@ -211,7 +196,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 800 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-800.ttf") format("truetype");
@@ -225,7 +209,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 850 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-850.ttf") format("truetype");
@@ -239,7 +222,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 900 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-900.ttf") format("truetype");
@@ -251,7 +233,8 @@ const fonts = css`
     src: url("/fonts/TWKLausanne-900Italic.ttf") format("truetype");
     font-weight: 900;
     font-style: italic;
-  } /* TWK Lausanne - Weight 950 */
+  }
+
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-950.ttf") format("truetype");
@@ -265,7 +248,6 @@ const fonts = css`
     font-style: italic;
   }
 
-  /* TWK Lausanne - Weight 1000 */
   @font-face {
     font-family: "TWK Lausanne";
     src: url("/fonts/TWKLausanne-1000.ttf") format("truetype");
@@ -277,14 +259,6 @@ const fonts = css`
     src: url("/fonts/TWKLausanne-1000Italic.ttf") format("truetype");
     font-weight: 1000;
     font-style: italic;
-  }
-  /* Apply the font globally */
-  body {
-    font-family: "TWK Lausanne", sans-serif;
-    font-weight: 400; /* Default weight */
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
   }
 `;
 
